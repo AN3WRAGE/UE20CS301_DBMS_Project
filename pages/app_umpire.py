@@ -1,34 +1,39 @@
 import streamlit as st
 import mysql.connector
 
-#from create import create_player
-#from database import create_table
-#from delete import delete_player
-#rom read import read_player
-#from update import update_player
+import sys
+sys.path.append('../IPL_Tournament_App')
 
+from umpire_functions.create import create
+from umpire_functions.read import read
+from umpire_functions.update import update
+from umpire_functions.delete import delete
 
 
 def main():
-    st.title("IPL Coaches")
+    st.title("IPL Umpire")
     menu = ["View", "Add", "Edit", "Remove"]
     choice = st.sidebar.selectbox("Menu", menu)
 
     #create_table()
     if choice == "View":
-        st.subheader("View created Umpire")
+        st.subheader("View created umpire")
+        read()
 
     elif choice == "Add":
-        st.subheader("Enter Umpire Details:")
+        st.subheader("Enter umpire Details:")
+        create()
 
     elif choice == "Edit":
-        st.subheader("Update created Umpire")
+        st.subheader("Update created umpire")
+        update()
         
     elif choice == "Remove":
-        st.subheader("Delete created Umpire")
+        st.subheader("Delete created umpire")
+        delete()
 
     else:
-        st.subheader("About Umpire")
+        st.subheader("About umpire")
 
 
 if __name__ == '__main__':

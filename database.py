@@ -48,6 +48,12 @@ def add_coach(coach_name,coach_id,dob,country_origin,team_name):
     c.execute('UPDATE COACH SET age=TIMESTAMPDIFF(YEAR, dob, CURDATE()) WHERE coach_name="{}"'.format(coach_name))
     mydb.commit()
 
+def add_umpire(umpire_name,umpire_id,no_of_matches,dob,country_origin):
+    c.execute('INSERT INTO UMPIRE(umpire_name,umpire_id,no_of_matches,dob,country_origin) VALUES (%s,%s,%s,%s,%s)',
+              (umpire_name,umpire_id,no_of_matches,dob,country_origin))
+    c.execute('UPDATE UMPIRE SET age=TIMESTAMPDIFF(YEAR, dob, CURDATE()) WHERE umpire_name="{}"'.format(umpire_name))
+    mydb.commit()
+
 
 
 def view_all_team():
@@ -75,6 +81,13 @@ def view_all_coach():
     data = c.fetchall()
     return data
 
+def view_all_umpire():
+    c.execute('SELECT * FROM UMPIRE')
+    data = c.fetchall()
+    return data
+
+
+
 
 def view_only_team_names():
     c.execute('SELECT team_name FROM TEAM')
@@ -101,6 +114,13 @@ def view_only_coach_names():
     data = c.fetchall()
     return data
 
+def view_only_umpire_names():
+    c.execute('SELECT umpire_name FROM UMPIRE')
+    data = c.fetchall()
+    return data
+
+
+
 
 def get_team(team_name):
     c.execute('SELECT * FROM TEAM WHERE team_name="{}"'.format(team_name))
@@ -124,6 +144,11 @@ def get_match(match_no):
 
 def get_coach(coach_name):
     c.execute('SELECT * FROM COACH WHERE coach_name="{}"'.format(coach_name))
+    data = c.fetchall()
+    return data
+
+def get_umpire(umpire_name):
+    c.execute('SELECT * FROM UMPIRE WHERE umpire_name="{}"'.format(umpire_name))
     data = c.fetchall()
     return data
 
@@ -165,6 +190,16 @@ def edit_coach_data(new_coach_name,new_coach_id,new_dob,new_country_origin,new_t
     data = c.fetchall()
     return data
 
+def edit_umpire_data(new_umpire_name,new_umpire_id,new_no_of_matches,new_dob,new_country_origin,umpire_name,umpire_id,no_of_matches,dob,country_origin):
+    c.execute("UPDATE UMPIRE SET umpire_name=%s, umpire_id=%s, no_of_matches=%s, dob=%s, country_origin=%s WHERE "
+              "umpire_name=%s and umpire_id=%s and no_of_matches=%s and dob=%s and country_origin=%s", (new_umpire_name,new_umpire_id,new_no_of_matches,new_dob,new_country_origin,umpire_name,umpire_id,no_of_matches,dob,country_origin))
+    c.execute('UPDATE UMPIRE SET age=TIMESTAMPDIFF(YEAR, dob, CURDATE()) WHERE umpire_name="{}"'.format(umpire_name))
+    mydb.commit()
+    data = c.fetchall()
+    return data
+
+
+
 def delete_team(team_name):
     c.execute('DELETE FROM TEAM WHERE team_name="{}"'.format(team_name))
     mydb.commit()
@@ -183,4 +218,8 @@ def delete_match(match_no):
 
 def delete_coach(coach_name):
     c.execute('DELETE FROM COACH WHERE coach_name="{}"'.format(coach_name))
+    mydb.commit()
+
+def delete_umpire(umpire_name):
+    c.execute('DELETE FROM UMPIRE WHERE umpire_name="{}"'.format(umpire_name))
     mydb.commit()
