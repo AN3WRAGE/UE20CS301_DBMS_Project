@@ -25,7 +25,6 @@ def add_team(team_name,city,wins,losses,draws,team_rank,home_stadium_id,rival_te
               (team_name,city,wins,losses,draws,team_rank,home_stadium_id,rival_team_name))
     mydb.commit()
 
-
 def add_player(player_name,jersey_no,test,odi,t20,dob,debut,keeper,team_name):
     c.execute('INSERT INTO PLAYER(player_name,jersey_no,test,odi,t20,dob,debut,keeper,team_name) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)',
               (player_name,jersey_no,test,odi,t20,dob,debut,keeper,team_name))
@@ -36,6 +35,11 @@ def add_player(player_name,jersey_no,test,odi,t20,dob,debut,keeper,team_name):
 def add_stadium(stadium_name,stadium_id,capacity,city,address):
     c.execute('INSERT INTO STADIUM VALUES (%s,%s,%s,%s,%s)',
               (stadium_name,stadium_id,capacity,city,address))
+    mydb.commit()
+
+def add_match(match_no,toss,result,match_date,man_of_match,stadium_id):
+    c.execute('INSERT INTO MATCHES VALUES (%s,%s,%s,%s,%s,%s)',
+              (match_no,toss,result,match_date,man_of_match,stadium_id))
     mydb.commit()
 
 
@@ -55,6 +59,11 @@ def view_all_stadium():
     data = c.fetchall()
     return data
 
+def view_all_match():
+    c.execute('SELECT * FROM MATCHES')
+    data = c.fetchall()
+    return data
+
 
 def view_only_team_names():
     c.execute('SELECT team_name FROM TEAM')
@@ -71,6 +80,11 @@ def view_only_stadium_names():
     data = c.fetchall()
     return data
 
+def view_only_match_result():
+    c.execute('SELECT match_no FROM MATCHES')
+    data = c.fetchall()
+    return data
+
 
 def get_team(team_name):
     c.execute('SELECT * FROM TEAM WHERE team_name="{}"'.format(team_name))
@@ -84,6 +98,11 @@ def get_player(player_name):
 
 def get_stadium(stadium_name):
     c.execute('SELECT * FROM STADIUM WHERE stadium_name="{}"'.format(stadium_name))
+    data = c.fetchall()
+    return data
+
+def get_match(match_no):
+    c.execute('SELECT * FROM MATCHES WHERE match_no={}'.format(match_no))
     data = c.fetchall()
     return data
 
@@ -110,6 +129,15 @@ def edit_stadium_data(new_stadium_name,new_stadium_id,new_capacity,new_city,new_
     data = c.fetchall()
     return data
 
+def edit_match_data(new_match_no,new_toss,new_result,new_match_date,new_man_of_match,new_stadium_id,match_no,toss,result,match_date,man_of_match,stadium_id):
+    c.execute("UPDATE MATCHES SET match_no=%s, toss=%s, result=%s, match_date=%s, man_of_match=%s, stadium_id=%s WHERE "
+              "match_no=%s and toss=%s and result=%s and match_date=%s and man_of_match=%s and stadium_id=%s", (new_match_no,new_toss,new_result,new_match_date,new_man_of_match,new_stadium_id,match_no,toss,result,match_date,man_of_match,stadium_id))
+    mydb.commit()
+    data = c.fetchall()
+    return data
+
+
+
 def delete_team(team_name):
     c.execute('DELETE FROM TEAM WHERE team_name="{}"'.format(team_name))
     mydb.commit()
@@ -120,4 +148,8 @@ def delete_player(player_name):
 
 def delete_stadium(stadium_name):
     c.execute('DELETE FROM STADIUM WHERE stadium_name="{}"'.format(stadium_name))
+    mydb.commit()
+
+def delete_match(match_no):
+    c.execute('DELETE FROM MATCHES WHERE match_no={}'.format(match_no))
     mydb.commit()
