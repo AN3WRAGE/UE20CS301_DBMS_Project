@@ -16,13 +16,14 @@ def create_tables():
     'FOREIGN KEY(rival_team_name) REFERENCES TEAM(team_name));')
 
     create player table with 10 columns extra is age which can be derived
+
+    create table for stadium
 '''
 
 def add_team(team_name,city,wins,losses,draws,team_rank,home_stadium_id,rival_team_name):
     c.execute('INSERT INTO TEAM VALUES (%s,%s,%s,%s,%s,%s,%s,%s)',
               (team_name,city,wins,losses,draws,team_rank,home_stadium_id,rival_team_name))
     mydb.commit()
-
 
 
 def add_player(player_name,jersey_no,test,odi,t20,dob,debut,keeper,team_name):
@@ -32,6 +33,13 @@ def add_player(player_name,jersey_no,test,odi,t20,dob,debut,keeper,team_name):
     #Umesh Yadav 9 19 1987-10-25 52 2014-06-13 75 Royal Challengers Bangalore
     mydb.commit()
 
+def add_stadium(stadium_name,stadium_id,capacity,city,address):
+    c.execute('INSERT INTO STADIUM VALUES (%s,%s,%s,%s,%s)',
+              (stadium_name,stadium_id,capacity,city,address))
+    mydb.commit()
+
+
+
 def view_all_team():
     c.execute('SELECT * FROM TEAM')
     data = c.fetchall()
@@ -39,6 +47,11 @@ def view_all_team():
 
 def view_all_player():
     c.execute('SELECT * FROM PLAYER')
+    data = c.fetchall()
+    return data
+
+def view_all_stadium():
+    c.execute('SELECT * FROM STADIUM')
     data = c.fetchall()
     return data
 
@@ -53,6 +66,11 @@ def view_only_player_names():
     data = c.fetchall()
     return data
 
+def view_only_stadium_names():
+    c.execute('SELECT stadium_name FROM STADIUM')
+    data = c.fetchall()
+    return data
+
 
 def get_team(team_name):
     c.execute('SELECT * FROM TEAM WHERE team_name="{}"'.format(team_name))
@@ -61,6 +79,11 @@ def get_team(team_name):
 
 def get_player(player_name):
     c.execute('SELECT * FROM PLAYER WHERE player_name="{}"'.format(player_name))
+    data = c.fetchall()
+    return data
+
+def get_stadium(stadium_name):
+    c.execute('SELECT * FROM STADIUM WHERE stadium_name="{}"'.format(stadium_name))
     data = c.fetchall()
     return data
 
@@ -80,6 +103,12 @@ def edit_player_data(new_player_name,new_jersey_no,new_test,new_odi,new_t20,new_
     data = c.fetchall()
     return data
 
+def edit_stadium_data(new_stadium_name,new_stadium_id,new_capacity,new_city,new_address,stadium_name,stadium_id,capacity,city,address):
+    c.execute("UPDATE STADIUM SET stadium_name=%s, stadium_id=%s, capacity=%s, city=%s, address=%s WHERE "
+              "stadium_name=%s and stadium_id=%s and capacity=%s and city=%s and address=%s", (new_stadium_name,new_stadium_id,new_capacity,new_city,new_address,stadium_name,stadium_id,capacity,city,address))
+    mydb.commit()
+    data = c.fetchall()
+    return data
 
 def delete_team(team_name):
     c.execute('DELETE FROM TEAM WHERE team_name="{}"'.format(team_name))
@@ -87,4 +116,8 @@ def delete_team(team_name):
 
 def delete_player(player_name):
     c.execute('DELETE FROM PLAYER WHERE player_name="{}"'.format(player_name))
+    mydb.commit()
+
+def delete_stadium(stadium_name):
+    c.execute('DELETE FROM STADIUM WHERE stadium_name="{}"'.format(stadium_name))
     mydb.commit()
