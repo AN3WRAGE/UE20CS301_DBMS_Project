@@ -25,6 +25,15 @@ def add_team(team_name,city,wins,losses,draws,team_rank,home_stadium_id,rival_te
               (team_name,city,wins,losses,draws,team_rank,home_stadium_id,rival_team_name))
     mydb.commit()
 
+def add_color(team_name,color):
+    c.execute('INSERT INTO COLORS VALUES (%s,%s)',
+              (team_name,color))
+    mydb.commit()
+
+def remove_color(team_name,color):
+    c.execute('DELETE FROM COLORS WHERE team_name=%s and color=%s',(team_name,color))
+    mydb.commit()
+
 def add_player(player_name,jersey_no,test,odi,t20,dob,debut,keeper,team_name):
     c.execute('INSERT INTO PLAYER(player_name,jersey_no,test,odi,t20,dob,debut,keeper,team_name) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)',
               (player_name,jersey_no,test,odi,t20,dob,debut,keeper,team_name))
@@ -57,7 +66,7 @@ def add_umpire(umpire_name,umpire_id,no_of_matches,dob,country_origin):
 
 
 def view_all_team():
-    c.execute('SELECT * FROM TEAM')
+    c.execute('SELECT *,team_colors(team_name) FROM TEAM')
     data = c.fetchall()
     return data
 

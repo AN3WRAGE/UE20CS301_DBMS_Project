@@ -3,12 +3,13 @@ import datetime
 import pandas as pd
 import streamlit as st
 from database import view_all_team, view_only_team_names, get_team, edit_team_data
+from database import add_color, remove_color
 
 
 def update():
     result = view_all_team()
     # st.write(result)
-    df = pd.DataFrame(result, columns=['team_name','city','wins','losses','draws','team_rank','home_stadium_id','rival_team_name'])
+    df = pd.DataFrame(result, columns=['team_name','city','wins','losses','draws','team_rank','home_stadium_id','rival_team_name','team_colors'])
     with st.expander("Current Teams"):
         st.dataframe(df)
     list_of_team = [i[0] for i in view_only_team_names()]
@@ -42,7 +43,22 @@ def update():
             edit_team_data(new_team_name,new_city,new_wins,new_losses,new_draws,new_team_rank,new_home_stadium_id,new_rival_team_name,team_name,city,wins,losses,draws,team_rank,home_stadium_id,rival_team_name)
             st.success("Successfully updated:: {} to ::{}".format(team_name, new_team_name))
 
+    
+        #Code to change the color of the team jersey
+        col3, col4 = st.columns(2)
+        with col3:
+            new_add_color = st.text_input("Enter a color to add:")
+            if st.button("Add new color"):
+                add_color(team_name,new_add_color)
+                st.success("Successfully added color {} to {}".format(new_add_color, team_name))
+                
+        with col4:
+            new_rem_color = st.text_input("Enter a color to remove:")
+            if st.button("Remove existing color"):
+                remove_color(team_name,new_rem_color)
+                st.success("Successfully removed color {} from {}".format(new_add_color, team_name))
+
     result2 = view_all_team()
-    df2 = pd.DataFrame(result2, columns=['team_name','city','wins','losses','draws','team_rank','home_stadium_id','rival_team_name'])
+    df2 = pd.DataFrame(result2, columns=['team_name','city','wins','losses','draws','team_rank','home_stadium_id','rival_team_name','team_colors'])
     with st.expander("Updated data"):
         st.dataframe(df2)
