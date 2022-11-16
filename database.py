@@ -42,6 +42,12 @@ def add_match(match_no,toss,result,match_date,man_of_match,stadium_id):
               (match_no,toss,result,match_date,man_of_match,stadium_id))
     mydb.commit()
 
+def add_coach(coach_name,coach_id,dob,country_origin,team_name):
+    c.execute('INSERT INTO COACH(coach_name,coach_id,dob,country_origin,team_name) VALUES (%s,%s,%s,%s,%s)',
+              (coach_name,coach_id,dob,country_origin,team_name))
+    c.execute('UPDATE COACH SET age=TIMESTAMPDIFF(YEAR, dob, CURDATE()) WHERE coach_name="{}"'.format(coach_name))
+    mydb.commit()
+
 
 
 def view_all_team():
@@ -61,6 +67,11 @@ def view_all_stadium():
 
 def view_all_match():
     c.execute('SELECT * FROM MATCHES')
+    data = c.fetchall()
+    return data
+
+def view_all_coach():
+    c.execute('SELECT * FROM COACH')
     data = c.fetchall()
     return data
 
@@ -85,6 +96,11 @@ def view_only_match_result():
     data = c.fetchall()
     return data
 
+def view_only_coach_names():
+    c.execute('SELECT coach_name FROM COACH')
+    data = c.fetchall()
+    return data
+
 
 def get_team(team_name):
     c.execute('SELECT * FROM TEAM WHERE team_name="{}"'.format(team_name))
@@ -103,6 +119,11 @@ def get_stadium(stadium_name):
 
 def get_match(match_no):
     c.execute('SELECT * FROM MATCHES WHERE match_no={}'.format(match_no))
+    data = c.fetchall()
+    return data
+
+def get_coach(coach_name):
+    c.execute('SELECT * FROM COACH WHERE coach_name="{}"'.format(coach_name))
     data = c.fetchall()
     return data
 
@@ -136,7 +157,13 @@ def edit_match_data(new_match_no,new_toss,new_result,new_match_date,new_man_of_m
     data = c.fetchall()
     return data
 
-
+def edit_coach_data(new_coach_name,new_coach_id,new_dob,new_country_origin,new_team_name,coach_name,coach_id,dob,country_origin,team_name):
+    c.execute("UPDATE COACH SET coach_name=%s, coach_id=%s, dob=%s, country_origin=%s, team_name=%s WHERE "
+              "coach_name=%s and coach_id=%s and dob=%s and country_origin=%s and team_name=%s", (new_coach_name,new_coach_id,new_dob,new_country_origin,new_team_name,coach_name,coach_id,dob,country_origin,team_name))
+    c.execute('UPDATE COACH SET age=TIMESTAMPDIFF(YEAR, dob, CURDATE()) WHERE coach_name="{}"'.format(coach_name))
+    mydb.commit()
+    data = c.fetchall()
+    return data
 
 def delete_team(team_name):
     c.execute('DELETE FROM TEAM WHERE team_name="{}"'.format(team_name))
@@ -152,4 +179,8 @@ def delete_stadium(stadium_name):
 
 def delete_match(match_no):
     c.execute('DELETE FROM MATCHES WHERE match_no={}'.format(match_no))
+    mydb.commit()
+
+def delete_coach(coach_name):
+    c.execute('DELETE FROM COACH WHERE coach_name="{}"'.format(coach_name))
     mydb.commit()
