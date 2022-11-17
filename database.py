@@ -41,6 +41,12 @@ def add_player(player_name,jersey_no,test,odi,t20,dob,debut,keeper,team_name):
     #Umesh Yadav 9 19 1987-10-25 52 2014-06-13 75 Royal Challengers Bangalore
     mydb.commit()
 
+def add_batsman(jersey_no,sixes,runs,average,fifties,fours,hundreds):
+    c.execute('INSERT INTO BATSMAN VALUES (%s,%s,%s,%s,%s,%s,%s)',
+              (jersey_no,sixes,runs,average,fifties,fours,hundreds))
+    mydb.commit()
+
+
 def add_stadium(stadium_name,stadium_id,capacity,city,address):
     c.execute('INSERT INTO STADIUM VALUES (%s,%s,%s,%s,%s)',
               (stadium_name,stadium_id,capacity,city,address))
@@ -95,6 +101,11 @@ def view_all_umpire():
     data = c.fetchall()
     return data
 
+def view_all_batsman():
+    c.execute('SELECT jersey_no,player_name,sixes,runs,average,fifties,fours,hundreds FROM PLAYER NATURAL JOIN BATSMAN')
+    data = c.fetchall()
+    return data
+
 
 
 
@@ -105,6 +116,11 @@ def view_only_team_names():
 
 def view_only_player_names():
     c.execute('SELECT player_name FROM PLAYER')
+    data = c.fetchall()
+    return data
+
+def view_only_batsman_names():
+    c.execute('SELECT player_name FROM BATSMAN NATURAL JOIN PLAYER')
     data = c.fetchall()
     return data
 
@@ -138,6 +154,11 @@ def get_team(team_name):
 
 def get_player(player_name):
     c.execute('SELECT * FROM PLAYER WHERE player_name="{}"'.format(player_name))
+    data = c.fetchall()
+    return data
+
+def get_batsman(player_name):
+    c.execute('SELECT jersey_no,player_name,sixes,runs,average,fifties,fours,hundreds FROM PLAYER NATURAL JOIN BATSMAN WHERE player_name="{}"'.format(player_name))
     data = c.fetchall()
     return data
 
@@ -207,6 +228,12 @@ def edit_umpire_data(new_umpire_name,new_umpire_id,new_no_of_matches,new_dob,new
     data = c.fetchall()
     return data
 
+def edit_batsman_data(new_jersey_no,new_sixes,new_runs,new_average,new_fifties,new_fours,new_hundreds,jersey_no,sixes,runs,average,fifties,fours,hundreds):
+    c.execute("UPDATE BATSMAN SET jersey_no=%s, sixes=%s, runs=%s, average=%s, fifties=%s, fours=%s, hundreds=%s WHERE "
+              "jersey_no=%s and sixes=%s and runs=%s and average=%s and fifties=%s and fours=%s and hundreds=%s", (new_jersey_no,new_sixes,new_runs,new_average,new_fifties,new_fours,new_hundreds,jersey_no,sixes,runs,average,fifties,fours,hundreds))
+    mydb.commit()
+    data = c.fetchall()
+    return data
 
 
 def delete_team(team_name):
@@ -231,4 +258,8 @@ def delete_coach(coach_name):
 
 def delete_umpire(umpire_name):
     c.execute('DELETE FROM UMPIRE WHERE umpire_name="{}"'.format(umpire_name))
+    mydb.commit()
+
+def delete_batsman(player_name):
+    c.execute('CALL delete_batsman("{}")'.format(player_name))
     mydb.commit()

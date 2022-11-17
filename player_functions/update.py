@@ -15,6 +15,7 @@ def update():
     selected = st.selectbox("Player to Edit", list_of_player)
     selected_result = get_player(selected)
     # st.write(selected_result)
+    jersey_no=None
     if selected_result:
         player_name = selected_result[0][0]
         jersey_no = selected_result[0][1]
@@ -47,6 +48,28 @@ def update():
         if st.button("Update player"):
             edit_player_data(new_player_name,new_jersey_no,new_test,new_odi,new_t20,new_dob,new_debut,new_keeper,new_team_name,player_name,jersey_no,test,odi,t20,dob,debut,keeper,team_name)
             st.success("Successfully updated:: {} to ::{}".format(player_name, new_player_name))
+
+    
+    yes_batsman = st.checkbox("Is this player a batsman?")
+    if yes_batsman:
+        st.subheader("Enter batsman details")
+        col3, col4 = st.columns(2)
+        with col3:
+            sixes = st.text_input("Number of Sixes:")
+            runs = st.text_input("Number of runs:")
+            avg = st.text_input("Batting Average:")
+
+        with col4:
+            fifties = st.text_input("Number of fifties:")
+            fours = st.text_input("Number of fours:")
+            hundreds = st.text_input("Number of centuries:")
+                
+        if st.button("Add batsman"):
+            if(jersey_no!=None):
+                add_batsman(jersey_no,sixes,runs,avg,fifties,fours,hundreds)
+                st.success("Successfully added as a Batsman: {}".format(player_name))
+            else:
+                st.failure("Enter player details first: {}".format(player_name))
 
     result2 = view_all_player()
     df2 = pd.DataFrame(result2, columns=['player_name','jersey_no','test','odi','t20','dob','debut','keeper','team_name','age'])
