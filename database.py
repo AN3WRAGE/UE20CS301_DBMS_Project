@@ -46,6 +46,10 @@ def add_batsman(jersey_no,sixes,runs,average,fifties,fours,hundreds):
               (jersey_no,sixes,runs,average,fifties,fours,hundreds))
     mydb.commit()
 
+def add_bowler(jersey_no,economy,wickets,average,runs,balls_bowled):
+    c.execute('INSERT INTO BOWLER VALUES (%s,%s,%s,%s,%s,%s)',
+              (jersey_no,economy,wickets,average,runs,balls_bowled))
+    mydb.commit()
 
 def add_stadium(stadium_name,stadium_id,capacity,city,address):
     c.execute('INSERT INTO STADIUM VALUES (%s,%s,%s,%s,%s)',
@@ -106,6 +110,11 @@ def view_all_batsman():
     data = c.fetchall()
     return data
 
+def view_all_bowler():
+    c.execute('SELECT jersey_no,player_name,economy,wickets,average,runs,balls_bowled FROM PLAYER NATURAL JOIN BOWLER')
+    data = c.fetchall()
+    return data
+
 
 
 
@@ -121,6 +130,11 @@ def view_only_player_names():
 
 def view_only_batsman_names():
     c.execute('SELECT player_name FROM BATSMAN NATURAL JOIN PLAYER')
+    data = c.fetchall()
+    return data
+
+def view_only_bowler_names():
+    c.execute('SELECT player_name FROM BOWLER NATURAL JOIN PLAYER')
     data = c.fetchall()
     return data
 
@@ -159,6 +173,11 @@ def get_player(player_name):
 
 def get_batsman(player_name):
     c.execute('SELECT jersey_no,player_name,sixes,runs,average,fifties,fours,hundreds FROM PLAYER NATURAL JOIN BATSMAN WHERE player_name="{}"'.format(player_name))
+    data = c.fetchall()
+    return data
+
+def get_bowler(player_name):
+    c.execute('SELECT jersey_no,player_name,economy,wickets,average,runs,balls_bowled FROM PLAYER NATURAL JOIN BOWLER WHERE player_name="{}"'.format(player_name))
     data = c.fetchall()
     return data
 
@@ -235,6 +254,13 @@ def edit_batsman_data(new_jersey_no,new_sixes,new_runs,new_average,new_fifties,n
     data = c.fetchall()
     return data
 
+def edit_bowler_data(new_jersey_no,new_economy,new_wickets,new_average,new_runs,new_balls_bowled,jersey_no,economy,wickets,average,runs,balls_bowled):
+    c.execute("UPDATE BOWLER SET jersey_no=%s, economy=%s, wickets=%s, average=%s, runs=%s, balls_bowled=%s WHERE "
+              "jersey_no=%s and economy=%s and wickets=%s and average=%s and runs=%s and balls_bowled=%s", (new_jersey_no,new_economy,new_wickets,new_average,new_runs,new_balls_bowled,jersey_no,economy,wickets,average,runs,balls_bowled))
+    mydb.commit()
+    data = c.fetchall()
+    return data
+
 
 def delete_team(team_name):
     c.execute('DELETE FROM TEAM WHERE team_name="{}"'.format(team_name))
@@ -262,4 +288,8 @@ def delete_umpire(umpire_name):
 
 def delete_batsman(player_name):
     c.execute('CALL delete_batsman("{}")'.format(player_name))
+    mydb.commit()
+
+def delete_bowler(player_name):
+    c.execute('CALL delete_bowler("{}")'.format(player_name))
     mydb.commit()

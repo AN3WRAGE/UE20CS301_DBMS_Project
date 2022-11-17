@@ -3,6 +3,7 @@ import datetime
 import pandas as pd
 import streamlit as st
 from database import view_all_player, view_only_player_names, get_player, edit_player_data
+from database import add_batsman, add_bowler
 
 
 def update():
@@ -71,6 +72,26 @@ def update():
             else:
                 st.failure("Enter player details first: {}".format(player_name))
 
+    yes_bowler = st.checkbox("Is this player a bowler?")
+    if yes_bowler:
+        st.subheader("Enter bowler details")
+        col3, col4 = st.columns(2)
+        with col3:
+            economy = st.text_input("Economy:")
+            wickets = st.text_input("Number of wickets:")
+
+        with col4:
+            average = st.text_input("Bowling average:")
+            runs = st.text_input("Runs given:")
+            balls_bowled = st.text_input("Number of balls bowled:")
+                
+        if st.button("Add bowler"):
+            if(jersey_no!=None):
+                add_bowler(jersey_no,economy,wickets,average,runs,balls_bowled)
+                st.success("Successfully added as a Bowler: {}".format(player_name))
+            else:
+                st.failure("Enter player details first: {}".format(player_name))
+    
     result2 = view_all_player()
     df2 = pd.DataFrame(result2, columns=['player_name','jersey_no','test','odi','t20','dob','debut','keeper','team_name','age'])
     with st.expander("Updated data"):

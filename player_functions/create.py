@@ -2,7 +2,7 @@ import streamlit as st
 import sys
 sys.path.append('../IPL_Tournament_App')
 
-from database import add_player, add_batsman
+from database import add_player, add_batsman, add_bowler
 
 def create():
     col1, col2 = st.columns(2)
@@ -47,5 +47,22 @@ def create():
             else:
                 st.failure("Enter player details first: {}".format(player_name))
         
-    if st.checkbox("Is this player a bowler?"):
-            st.subheader("Enter bowler details")
+    yes_bowler = st.checkbox("Is this player a bowler?")
+    if yes_bowler:
+        st.subheader("Enter bowler details")
+        col3, col4 = st.columns(2)
+        with col3:
+            economy = st.text_input("Economy:")
+            wickets = st.text_input("Number of wickets:")
+
+        with col4:
+            average = st.text_input("Bowling average:")
+            runs = st.text_input("Runs given:")
+            balls_bowled = st.text_input("Number of balls bowled:")
+                
+        if st.button("Add bowler"):
+            if(jersey_no!=None):
+                add_bowler(jersey_no,economy,wickets,average,runs,balls_bowled)
+                st.success("Successfully added as a Bowler: {}".format(player_name))
+            else:
+                st.failure("Enter player details first: {}".format(player_name))
