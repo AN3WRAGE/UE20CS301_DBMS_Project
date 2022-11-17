@@ -9,6 +9,10 @@ from match_functions.read import read
 from match_functions.update import update
 from match_functions.delete import delete
 
+st.set_page_config(
+    page_title="Matches",
+)
+
 
 def main():
     st.title("IPL Matches")

@@ -9,6 +9,10 @@ from stadium_functions.read import read
 from stadium_functions.update import update
 from stadium_functions.delete import delete
 
+st.set_page_config(
+    page_title="Stadiums",
+)
+
 
 def main():
     st.title("IPL Stadiums")

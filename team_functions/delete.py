@@ -5,7 +5,7 @@ from database import view_all_team, view_only_team_names, delete_team
 
 def delete():
     result = view_all_team()
-    df = pd.DataFrame(result, columns=['team_name','city','wins','losses','draws','team_rank','home_stadium_id','rival_team_name','team_colors'])
+    df = pd.DataFrame(result, columns=['team_name','city','wins','losses','draws','team_rank','home_stadium_id','rival_team_name','team_colors','team_captain'])
     with st.expander("Current data"):
         st.dataframe(df)
 
@@ -16,6 +16,6 @@ def delete():
         delete_team(selected_team)
         st.success("Team has been deleted successfully")
     new_result = view_all_team()
-    df2 = pd.DataFrame(new_result, columns=['team_name','city','wins','losses','draws','team_rank','home_stadium_id','rival_team_name','team_colors'])
+    df2 = pd.DataFrame(new_result, columns=['team_name','city','wins','losses','draws','team_rank','home_stadium_id','rival_team_name','team_colors','team_captain'])
     with st.expander("Updated data"):
         st.dataframe(df2)

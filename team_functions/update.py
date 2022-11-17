@@ -9,7 +9,7 @@ from database import add_color, remove_color
 def update():
     result = view_all_team()
     # st.write(result)
-    df = pd.DataFrame(result, columns=['team_name','city','wins','losses','draws','team_rank','home_stadium_id','rival_team_name','team_colors'])
+    df = pd.DataFrame(result, columns=['team_name','city','wins','losses','draws','team_rank','home_stadium_id','rival_team_name','team_colors','team_captain'])
     with st.expander("Current Teams"):
         st.dataframe(df)
     list_of_team = [i[0] for i in view_only_team_names()]
@@ -59,6 +59,6 @@ def update():
                 st.success("Successfully removed color {} from {}".format(new_add_color, team_name))
 
     result2 = view_all_team()
-    df2 = pd.DataFrame(result2, columns=['team_name','city','wins','losses','draws','team_rank','home_stadium_id','rival_team_name','team_colors'])
+    df2 = pd.DataFrame(result2, columns=['team_name','city','wins','losses','draws','team_rank','home_stadium_id','rival_team_name','team_colors','team_captain'])
     with st.expander("Updated data"):
         st.dataframe(df2)

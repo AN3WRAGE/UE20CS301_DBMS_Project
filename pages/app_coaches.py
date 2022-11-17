@@ -9,6 +9,10 @@ from coach_functions.read import read
 from coach_functions.update import update
 from coach_functions.delete import delete
 
+st.set_page_config(
+    page_title="Coaches",
+)
+
 
 def main():
     st.title("IPL Coaches")

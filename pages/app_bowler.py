@@ -8,6 +8,10 @@ from bowler_functions.read import read
 from bowler_functions.update import update
 from bowler_functions.delete import delete
 
+st.set_page_config(
+    page_title="Bowlers",
+)
+
 
 def main():
     st.title("IPL Bowlers")

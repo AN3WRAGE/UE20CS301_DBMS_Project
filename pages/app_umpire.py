@@ -9,6 +9,10 @@ from umpire_functions.read import read
 from umpire_functions.update import update
 from umpire_functions.delete import delete
 
+st.set_page_config(
+    page_title="Umpires",
+)
+
 
 def main():
     st.title("IPL Umpire")

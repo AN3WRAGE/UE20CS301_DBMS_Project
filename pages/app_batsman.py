@@ -8,6 +8,9 @@ from batsman_functions.read import read
 from batsman_functions.update import update
 from batsman_functions.delete import delete
 
+st.set_page_config(
+    page_title="Batsmen",
+)
 
 def main():
     st.title("IPL Batsmen")

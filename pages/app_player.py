@@ -9,6 +9,10 @@ from player_functions.read import read
 from player_functions.update import update
 from player_functions.delete import delete
 
+st.set_page_config(
+    page_title="Players",
+)
+
 
 def main():
     st.title("IPL Players")

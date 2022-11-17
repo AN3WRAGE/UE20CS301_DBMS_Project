@@ -9,6 +9,10 @@ from team_functions.read import read
 from team_functions.update import update
 from team_functions.delete import delete
 
+st.set_page_config(
+    page_title="Teams",
+)
+
 
 def main():
     st.title("IPL Teams")

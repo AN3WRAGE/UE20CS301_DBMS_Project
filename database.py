@@ -76,7 +76,7 @@ def add_umpire(umpire_name,umpire_id,no_of_matches,dob,country_origin):
 
 
 def view_all_team():
-    c.execute('SELECT *,team_colors(team_name) FROM TEAM')
+    c.execute('SELECT *,team_colors(team_name),get_captain(team_name) FROM TEAM')
     data = c.fetchall()
     return data
 
@@ -162,7 +162,7 @@ def view_only_umpire_names():
 
 
 def get_team(team_name):
-    c.execute('SELECT * FROM TEAM WHERE team_name="{}"'.format(team_name))
+    c.execute('SELECT *,team_colors(team_name),get_captain(team_name) FROM TEAM WHERE team_name="{}"'.format(team_name))
     data = c.fetchall()
     return data
 
