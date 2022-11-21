@@ -19,6 +19,31 @@ def create_tables():
 
     create table for stadium
 '''
+def custom_query(query):
+    c.execute(query)
+    data = c.fetchall()
+    return data
+
+def left_outer_join(left,right,common):
+    c.execute('SELECT * FROM {} LEFT JOIN {} ON {}.{}={}.{}'.format(left,right,left,common,right,common))
+    data = c.fetchall()
+    return data
+
+def right_outer_join(left,right,common):
+    c.execute('SELECT * FROM {} RIGHT JOIN {} ON {}.{}={}.{}'.format(left,right,left,common,right,common))
+    data = c.fetchall()
+    return data
+
+def full_outer_join(left,right,common):
+    c.execute('SELECT * FROM {} FULL OUTER JOIN {} ON {}.{}={}.{}'.format(left,right,left,common,right,common))
+    data = c.fetchall()
+    return data
+
+def inner_join(left,right,common):
+    c.execute('SELECT * FROM {} INNER JOIN {} ON {}.{}={}.{}'.format(left,right,left,common,right,common))
+    data = c.fetchall()
+    return data
+
 
 def add_team(team_name,city,wins,losses,draws,team_rank,home_stadium_id,rival_team_name):
     c.execute('INSERT INTO TEAM VALUES (%s,%s,%s,%s,%s,%s,%s,%s)',
@@ -78,6 +103,11 @@ def add_umpire(umpire_name,umpire_id,no_of_matches,dob,country_origin):
     c.execute('UPDATE UMPIRE SET age=TIMESTAMPDIFF(YEAR, dob, CURDATE()) WHERE umpire_name="{}"'.format(umpire_name))
     mydb.commit()
 
+def add_match_umpire(match_no,umpire_id):
+    c.execute('INSERT INTO MATCH_UMPIRE(match_no,umpire_id) VALUES (%s,%s)',
+              (match_no,umpire_id))
+    mydb.commit()
+
 
 
 def view_all_team():
@@ -96,7 +126,7 @@ def view_all_stadium():
     return data
 
 def view_all_match():
-    c.execute('SELECT match_no,get_first_team_for_match(match_no),get_second_team_for_match(match_no),toss,result,match_date,man_of_match,stadium_id FROM MATCHES')
+    c.execute('SELECT match_no,get_first_team_for_match(match_no),get_second_team_for_match(match_no),toss,result,match_date,man_of_match,get_first_umpire(match_no),stadium_id FROM MATCHES')
     data = c.fetchall()
     return data
 
@@ -239,6 +269,13 @@ def edit_match_data(new_match_no,new_toss,new_result,new_match_date,new_man_of_m
 def edit_team_match_data(new_team_name,new_match_no,team_name,match_no):
     c.execute("UPDATE TEAM_MATCH SET team_name=%s, match_no=%s WHERE team_name=%s AND match_no=%s"
               ,(new_team_name,new_match_no,team_name,match_no))
+    mydb.commit()
+    data = c.fetchall()
+    return data
+
+def edit_match_umpire_data(new_match_no,new_umpire_id,match_no,umpire_id):
+    c.execute("UPDATE MATCH_UMPIRE SET match_no=%s, umpire_id=%s WHERE match_no=%s AND umpire_id=%s"
+              ,(new_match_no,new_umpire_id,match_no,umpire_id))
     mydb.commit()
     data = c.fetchall()
     return data

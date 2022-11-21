@@ -6,7 +6,7 @@ from database import view_all_match
 
 def read():
     result = view_all_match()
-    df = pd.DataFrame(result, columns=['match_no','team_1','team_2','toss','result','match_date','man_of_match','stadium_id'])
+    df = pd.DataFrame(result, columns=['match_no','team_1','team_2','toss','result','match_date','man_of_match','umpire_1','stadium_id'])
     with st.expander("View all Matches"):
         st.dataframe(df)
 

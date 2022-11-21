@@ -8,7 +8,7 @@ from database import view_all_match, view_only_match_number, get_match, edit_mat
 def update():
     result = view_all_match()
     # st.write(result)
-    df = pd.DataFrame(result, columns=['match_no','team_1','team_2','toss','result','match_date','man_of_match','stadium_id'])
+    df = pd.DataFrame(result, columns=['match_no','team_1','team_2','toss','result','match_date','man_of_match','umpire_1','stadium_id'])
     with st.expander("Current Matches"):
         st.dataframe(df)
     list_of_items = [i[0] for i in view_only_match_number()]
@@ -45,6 +45,6 @@ def update():
             st.success("Successfully updated:: {} to ::{}".format(match_no, new_match_no))
 
     result2 = view_all_match()
-    df2 = pd.DataFrame(result2, columns=['match_no','team_1','team_2','toss','result','match_date','man_of_match','stadium_id'])
+    df2 = pd.DataFrame(result2, columns=['match_no','team_1','team_2','toss','result','match_date','man_of_match','umpire_1','stadium_id'])
     with st.expander("Updated data"):
         st.dataframe(df2)

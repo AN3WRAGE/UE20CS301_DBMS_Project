@@ -5,7 +5,7 @@ from database import view_all_match, view_only_match_number, delete_match, delet
 
 def delete():
     result = view_all_match()
-    df = pd.DataFrame(result, columns=['match_no','team_1','team_2','toss','result','match_date','man_of_match','stadium_id'])
+    df = pd.DataFrame(result, columns=['match_no','team_1','team_2','toss','result','match_date','man_of_match','umpire_1','stadium_id'])
     with st.expander("Current data"):
         st.dataframe(df)
 
@@ -17,6 +17,6 @@ def delete():
         delete_match(selected_items)
         st.success("Match has been deleted successfully")
     new_result = view_all_match()
-    df2 = pd.DataFrame(new_result, columns=['match_no','team_1','team_2','toss','result','match_date','man_of_match','stadium_id'])
+    df2 = pd.DataFrame(new_result, columns=['match_no','team_1','team_2','toss','result','match_date','man_of_match','umpire_1','stadium_id'])
     with st.expander("Updated data"):
         st.dataframe(df2)
