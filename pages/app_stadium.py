@@ -1,5 +1,6 @@
 import streamlit as st
 import mysql.connector
+from PIL import Image
 
 import sys
 sys.path.append('../IPL_Tournament_App')
@@ -16,6 +17,8 @@ st.set_page_config(
 
 def main():
     st.title("IPL Stadiums")
+    image = Image.open('IPL_7.jpg')
+    st.image(image, caption='Stadium')
     menu = ["View", "Add", "Edit", "Remove"]
     choice = st.sidebar.selectbox("Menu", menu)
 

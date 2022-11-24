@@ -12,9 +12,11 @@ st.set_page_config(
 )
 
 def main():
+    st.title("Enter a custom SQL Join")
     left = st.text_input("Enter first table name")
     right = st.text_input("Enter second table name")
     common = st.text_input("Enter common attribute")
+    
 
     if st.button("Left Outer Join"):
         result=left_outer_join(left,right,common)

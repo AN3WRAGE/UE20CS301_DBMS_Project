@@ -19,6 +19,7 @@ def create_tables():
 
     create table for stadium
 '''
+#def get_info(tablename)
 def custom_query(query):
     c.execute(query)
     data = c.fetchall()
