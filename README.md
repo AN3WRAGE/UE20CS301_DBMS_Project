@@ -12,4 +12,5 @@ Other libraries used: Pandas, PIL, Plotly
 
 ## How to run this ##
 1) Create a database and run PES1UG20CS067_Cricket_Tournament.sql
-2) Go to cmd and type - "streamlit run app.y"
+2) Change database name and password in database.py accordingly
+3) Go to cmd and type - "streamlit run app.y"
