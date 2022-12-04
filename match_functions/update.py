@@ -28,18 +28,18 @@ def update():
 
         col1, col2 = st.columns(2)
         with col1:
-            new_team_1 = st.text_input("Enter Team 1:")
-            new_match_no = st.text_input("Match Number:")
-            new_toss = st.text_input("Toss result:")
-            new_result = st.text_input("Winning team result:")
+            new_team_1 = st.text_input("Enter Team 1:",value=team_1)
+            new_match_no = st.text_input("Match Number:",value=match_no)
+            new_toss = st.text_input("Toss result:",value=toss)
+            new_result = st.text_input("Winning team result:",value=result)
         with col2:
-            new_team_2 = st.text_input("Enter Team 2:")
-            new_match_date = st.text_input("Date:")
-            new_man_of_match = st.text_input("Man of the match:")
-            new_stadium_id = st.text_input("Stadium ID:")
+            new_team_2 = st.text_input("Enter Team 2:",value=team_2)
+            new_match_date = st.text_input("Date:",value=match_date)
+            new_man_of_match = st.text_input("Man of the match:",value=man_of_match)
+            new_stadium_id = st.text_input("Stadium ID:",value=stadium_id)
 
         if st.button("Update match"):
-            edit_match_data(new_match_no,new_toss,new_result,new_match_date,new_man_of_match,new_stadium_id,match_no,toss,result,match_date,man_of_match,stadium_id)
+            edit_match_data(new_match_no,new_toss,new_result,new_match_date,new_man_of_match,new_stadium_id,match_no)
             edit_team_match_data(new_team_1,new_match_no,team_1,match_no)
             edit_team_match_data(new_team_2,new_match_no,team_2,match_no)
             st.success("Successfully updated:: {} to ::{}".format(match_no, new_match_no))

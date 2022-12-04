@@ -25,15 +25,15 @@ def update():
 
         col1, col2 = st.columns(2)
         with col1:
-            new_coach_name = st.text_input("Coach name:")
-            new_coach_id = st.text_input("Coach ID:")
-            new_dob = st.text_input("Date of birth:")
+            new_coach_name = st.text_input("Coach name:",value=coach_name)
+            new_coach_id = st.text_input("Coach ID:",value=coach_id)
+            new_dob = st.text_input("Date of birth:",value=dob)
         with col2:
-            new_country_origin = st.text_input("Country of origin:")
-            new_team_name = st.text_input("Name of the team:")
+            new_country_origin = st.text_input("Country of origin:",value=country_origin)
+            new_team_name = st.text_input("Name of the team:",value=team_name)
 
         if st.button("Update coach"):
-            edit_coach_data(new_coach_name,new_coach_id,new_dob,new_country_origin,new_team_name,coach_name,coach_id,dob,country_origin,team_name)
+            edit_coach_data(new_coach_name,new_coach_id,new_dob,new_country_origin,new_team_name,coach_name)
             st.success("Successfully updated:: {} to ::{}".format(coach_name, new_coach_name))
 
     result2 = view_all_coach()

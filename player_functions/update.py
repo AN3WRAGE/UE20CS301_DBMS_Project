@@ -31,23 +31,23 @@ def update():
 
         col1, col2 = st.columns(2)
         with col1:
-            new_player_name = st.text_input("Player Name:")
-            new_jersey_no = st.text_input("Unique Jersey Number:")
-            new_test = st.text_input("Test matches played:")
-            new_odi = st.text_input("ODI matches played:")
-            new_team_name = st.text_input("Team name:")
+            new_player_name = st.text_input("Player Name:",value=player_name)
+            new_jersey_no = st.text_input("Unique Jersey Number:",value=jersey_no)
+            new_test = st.text_input("Test matches played:",value=test)
+            new_odi = st.text_input("ODI matches played:",value=odi)
+            new_team_name = st.text_input("Team name:",value=team_name)
 
         with col2:
-            new_t20 = st.text_input("T20 matches played:")
-            new_dob = st.text_input("Date of birth:")
-            new_debut = st.text_input("Debut date:")
+            new_t20 = st.text_input("T20 matches played:",value=t20)
+            new_dob = st.text_input("Date of birth:",value=dob)
+            new_debut = st.text_input("Debut date:",value=debut)
             iskeeper = st.selectbox("Is he a wicket-keeper:", ["Yes", "No"])
             new_keeper=0
             if(iskeeper=="Yes"):
                 new_keeper=1
 
         if st.button("Update player"):
-            edit_player_data(new_player_name,new_jersey_no,new_test,new_odi,new_t20,new_dob,new_debut,new_keeper,new_team_name,player_name,jersey_no,test,odi,t20,dob,debut,keeper,team_name)
+            edit_player_data(new_player_name,new_jersey_no,new_test,new_odi,new_t20,new_dob,new_debut,new_keeper,new_team_name,player_name)
             st.success("Successfully updated:: {} to ::{}".format(player_name, new_player_name))
 
     

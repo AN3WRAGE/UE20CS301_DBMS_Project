@@ -112,7 +112,7 @@ def add_match_umpire(match_no,umpire_id):
 
 
 def view_all_team():
-    c.execute('SELECT *,team_colors(team_name),get_captain(team_name) FROM TEAM')
+    c.execute('SELECT *,team_colors(team_name),get_captain(team_name),2*get_cummulative_team(team_name) as points FROM TEAM order by points desc;')
     data = c.fetchall()
     return data
 
@@ -238,31 +238,31 @@ def get_umpire(umpire_name):
     return data
 
 
-def edit_team_data(new_team_name,new_city,new_wins,new_losses,new_draws,new_team_rank,new_home_stadium_id,new_rival_team_name,team_name,city,wins,losses,draws,team_rank,home_stadium_id,rival_team_name):
+def edit_team_data(new_team_name,new_city,new_wins,new_losses,new_draws,new_team_rank,new_home_stadium_id,new_rival_team_name,team_name):
     c.execute("UPDATE TEAM SET team_name=%s, city=%s, wins=%s, losses=%s, draws=%s, team_rank=%s, home_stadium_id=%s, rival_team_name=%s WHERE "
-              "team_name=%s and city=%s and wins=%s and losses=%s and draws=%s and team_rank=%s and home_stadium_id=%s and rival_team_name=%s", (new_team_name,new_city,new_wins,new_losses,new_draws,new_team_rank,new_home_stadium_id,new_rival_team_name,team_name,city,wins,losses,draws,team_rank,home_stadium_id,rival_team_name))
+              "team_name=%s", (new_team_name,new_city,new_wins,new_losses,new_draws,new_team_rank,new_home_stadium_id,new_rival_team_name,team_name))
     mydb.commit()
     data = c.fetchall()
     return data
 
-def edit_player_data(new_player_name,new_jersey_no,new_test,new_odi,new_t20,new_dob,new_debut,new_keeper,new_team_name,player_name,jersey_no,test,odi,t20,dob,debut,keeper,team_name):
+def edit_player_data(new_player_name,new_jersey_no,new_test,new_odi,new_t20,new_dob,new_debut,new_keeper,new_team_name,player_name):
     c.execute("UPDATE PLAYER SET player_name=%s, jersey_no=%s, test=%s, odi=%s, t20=%s, dob=%s, debut=%s, keeper=%s, team_name=%s WHERE "
-              "player_name=%s and jersey_no=%s and test=%s and odi=%s and t20=%s and dob=%s and debut=%s and keeper=%s and team_name=%s", (new_player_name,new_jersey_no,new_test,new_odi,new_t20,new_dob,new_debut,new_keeper,new_team_name,player_name,jersey_no,test,odi,t20,dob,debut,keeper,team_name))
+              "player_name=%s", (new_player_name,new_jersey_no,new_test,new_odi,new_t20,new_dob,new_debut,new_keeper,new_team_name,player_name))
     c.execute('UPDATE PLAYER SET age=TIMESTAMPDIFF(YEAR, dob, CURDATE()) WHERE player_name="{}"'.format(player_name))
     mydb.commit()
     data = c.fetchall()
     return data
 
-def edit_stadium_data(new_stadium_name,new_stadium_id,new_capacity,new_city,new_address,stadium_name,stadium_id,capacity,city,address):
+def edit_stadium_data(new_stadium_name,new_stadium_id,new_capacity,new_city,new_address,stadium_name):
     c.execute("UPDATE STADIUM SET stadium_name=%s, stadium_id=%s, capacity=%s, city=%s, address=%s WHERE "
-              "stadium_name=%s and stadium_id=%s and capacity=%s and city=%s and address=%s", (new_stadium_name,new_stadium_id,new_capacity,new_city,new_address,stadium_name,stadium_id,capacity,city,address))
+              "stadium_name=%s", (new_stadium_name,new_stadium_id,new_capacity,new_city,new_address,stadium_name))
     mydb.commit()
     data = c.fetchall()
     return data
 
-def edit_match_data(new_match_no,new_toss,new_result,new_match_date,new_man_of_match,new_stadium_id,match_no,toss,result,match_date,man_of_match,stadium_id):
+def edit_match_data(new_match_no,new_toss,new_result,new_match_date,new_man_of_match,new_stadium_id,match_no):
     c.execute("UPDATE MATCHES SET match_no=%s, toss=%s, result=%s, match_date=%s, man_of_match=%s, stadium_id=%s WHERE "
-              "match_no=%s and toss=%s and result=%s and match_date=%s and man_of_match=%s and stadium_id=%s", (new_match_no,new_toss,new_result,new_match_date,new_man_of_match,new_stadium_id,match_no,toss,result,match_date,man_of_match,stadium_id))
+              "match_no=%s", (new_match_no,new_toss,new_result,new_match_date,new_man_of_match,new_stadium_id,match_no))
     mydb.commit()
     data = c.fetchall()
     return data
@@ -281,32 +281,32 @@ def edit_match_umpire_data(new_match_no,new_umpire_id,match_no,umpire_id):
     data = c.fetchall()
     return data
 
-def edit_coach_data(new_coach_name,new_coach_id,new_dob,new_country_origin,new_team_name,coach_name,coach_id,dob,country_origin,team_name):
+def edit_coach_data(new_coach_name,new_coach_id,new_dob,new_country_origin,new_team_name,coach_name):
     c.execute("UPDATE COACH SET coach_name=%s, coach_id=%s, dob=%s, country_origin=%s, team_name=%s WHERE "
-              "coach_name=%s and coach_id=%s and dob=%s and country_origin=%s and team_name=%s", (new_coach_name,new_coach_id,new_dob,new_country_origin,new_team_name,coach_name,coach_id,dob,country_origin,team_name))
+              "coach_name=%s", (new_coach_name,new_coach_id,new_dob,new_country_origin,new_team_name,coach_name))
     c.execute('UPDATE COACH SET age=TIMESTAMPDIFF(YEAR, dob, CURDATE()) WHERE coach_name="{}"'.format(coach_name))
     mydb.commit()
     data = c.fetchall()
     return data
 
-def edit_umpire_data(new_umpire_name,new_umpire_id,new_no_of_matches,new_dob,new_country_origin,umpire_name,umpire_id,no_of_matches,dob,country_origin):
+def edit_umpire_data(new_umpire_name,new_umpire_id,new_no_of_matches,new_dob,new_country_origin,umpire_name):
     c.execute("UPDATE UMPIRE SET umpire_name=%s, umpire_id=%s, no_of_matches=%s, dob=%s, country_origin=%s WHERE "
-              "umpire_name=%s and umpire_id=%s and no_of_matches=%s and dob=%s and country_origin=%s", (new_umpire_name,new_umpire_id,new_no_of_matches,new_dob,new_country_origin,umpire_name,umpire_id,no_of_matches,dob,country_origin))
+              "umpire_name=%s", (new_umpire_name,new_umpire_id,new_no_of_matches,new_dob,new_country_origin,umpire_name))
     c.execute('UPDATE UMPIRE SET age=TIMESTAMPDIFF(YEAR, dob, CURDATE()) WHERE umpire_name="{}"'.format(umpire_name))
     mydb.commit()
     data = c.fetchall()
     return data
 
-def edit_batsman_data(new_jersey_no,new_sixes,new_runs,new_average,new_fifties,new_fours,new_hundreds,jersey_no,sixes,runs,average,fifties,fours,hundreds):
+def edit_batsman_data(new_jersey_no,new_sixes,new_runs,new_average,new_fifties,new_fours,new_hundreds,jersey_no):
     c.execute("UPDATE BATSMAN SET jersey_no=%s, sixes=%s, runs=%s, average=%s, fifties=%s, fours=%s, hundreds=%s WHERE "
-              "jersey_no=%s and sixes=%s and runs=%s and average=%s and fifties=%s and fours=%s and hundreds=%s", (new_jersey_no,new_sixes,new_runs,new_average,new_fifties,new_fours,new_hundreds,jersey_no,sixes,runs,average,fifties,fours,hundreds))
+              "jersey_no=%s", (new_jersey_no,new_sixes,new_runs,new_average,new_fifties,new_fours,new_hundreds,jersey_no))
     mydb.commit()
     data = c.fetchall()
     return data
 
-def edit_bowler_data(new_jersey_no,new_economy,new_wickets,new_average,new_runs,new_balls_bowled,jersey_no,economy,wickets,average,runs,balls_bowled):
+def edit_bowler_data(new_jersey_no,new_economy,new_wickets,new_average,new_runs,new_balls_bowled,jersey_no):
     c.execute("UPDATE BOWLER SET jersey_no=%s, economy=%s, wickets=%s, average=%s, runs=%s, balls_bowled=%s WHERE "
-              "jersey_no=%s and economy=%s and wickets=%s and average=%s and runs=%s and balls_bowled=%s", (new_jersey_no,new_economy,new_wickets,new_average,new_runs,new_balls_bowled,jersey_no,economy,wickets,average,runs,balls_bowled))
+              "jersey_no=%s", (new_jersey_no,new_economy,new_wickets,new_average,new_runs,new_balls_bowled,jersey_no))
     mydb.commit()
     data = c.fetchall()
     return data

@@ -6,7 +6,7 @@ from database import view_all_team
 
 def read():
     result = view_all_team()
-    df = pd.DataFrame(result, columns=['team_name','city','wins','losses','draws','team_rank','home_stadium_id','rival_team_name','team_colors','team_captain'])
+    df = pd.DataFrame(result, columns=['team_name','city','wins','losses','draws','team_rank','home_stadium_id','rival_team_name','team_colors','team_captain','points'])
     with st.expander("View all Teams"):
         st.dataframe(df)
 

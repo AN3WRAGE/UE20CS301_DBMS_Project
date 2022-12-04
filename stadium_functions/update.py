@@ -25,16 +25,16 @@ def update():
 
         col1, col2 = st.columns(2)
         with col1:
-            new_stadium_name = st.text_input("Stadium Name:")
-            new_stadium_id = st.text_input("Stadium ID:")
-            new_capacity = st.text_input("Capacity:")
+            new_stadium_name = st.text_input("Stadium Name:",value=stadium_name)
+            new_stadium_id = st.text_input("Stadium ID:",value=stadium_id)
+            new_capacity = st.text_input("Capacity:",value=capacity)
 
         with col2:
-            new_city = st.text_input("City:")
-            new_address = st.text_input("Address:")
+            new_city = st.text_input("City:",value=city)
+            new_address = st.text_input("Address:",value=address)
 
         if st.button("Update stadium"):
-            edit_stadium_data(new_stadium_name,new_stadium_id,new_capacity,new_city,new_address,stadium_name,stadium_id,capacity,city,address)
+            edit_stadium_data(new_stadium_name,new_stadium_id,new_capacity,new_city,new_address,stadium_name)
             st.success("Successfully updated:: {} to ::{}".format(stadium_name, new_stadium_name))
 
     result2 = view_all_stadium()

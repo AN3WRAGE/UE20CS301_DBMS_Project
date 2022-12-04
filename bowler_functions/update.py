@@ -27,17 +27,17 @@ def update():
 
         col1, col2 = st.columns(2)
         with col1:
-            new_jersey_no = st.text_input("Enter jersey no:")
-            new_economy = st.text_input("Economy:")
-            new_wickets = st.text_input("Number of wickets:")
+            new_jersey_no = st.text_input("Enter jersey no:",value=jersey_no)
+            new_economy = st.text_input("Economy:",value=economy)
+            new_wickets = st.text_input("Number of wickets:",value=wickets)
 
         with col2:
-            new_average = st.text_input("Bowling average:")
-            new_runs = st.text_input("Runs given:")
-            new_balls_bowled = st.text_input("Number of balls bowled:")
+            new_average = st.text_input("Bowling average:",value=average)
+            new_runs = st.text_input("Runs given:",value=runs)
+            new_balls_bowled = st.text_input("Number of balls bowled:",value=balls_bowled)
 
         if st.button("Update bowler"):
-            edit_bowler_data(new_jersey_no,new_economy,new_wickets,new_average,new_runs,new_balls_bowled,jersey_no,economy,wickets,average,runs,balls_bowled)
+            edit_bowler_data(new_jersey_no,new_economy,new_wickets,new_average,new_runs,new_balls_bowled,jersey_no)
             st.success("Successfully updated bowler:: {} ".format(player_name))
 
     result2 = view_all_bowler()

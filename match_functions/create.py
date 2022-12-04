@@ -27,5 +27,5 @@ def create():
         add_match_umpire(match_no,umpire1) 
         add_match_umpire(match_no,umpire2) 
         add_match_umpire(match_no,umpire3) 
-        add_match_umpire(match_no,)
+        add_match_umpire(match_no,umpire1)
         st.success("Successfully added Match: {}".format(match_no))

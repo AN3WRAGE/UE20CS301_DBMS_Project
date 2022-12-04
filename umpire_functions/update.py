@@ -25,15 +25,15 @@ def update():
 
         col1, col2 = st.columns(2)
         with col1:
-            new_umpire_name = st.text_input("Umpire name:")
-            new_umpire_id = st.text_input("Umpire ID:")
-            new_dob = st.text_input("Date of birth:")
+            new_umpire_name = st.text_input("Umpire name:",value=umpire_name)
+            new_umpire_id = st.text_input("Umpire ID:",value=umpire_id)
+            new_dob = st.text_input("Date of birth:",value=dob)
         with col2:
-            new_country_origin = st.text_input("Country of origin:")
-            new_no_of_matches = st.text_input("No. of matches umpired:")
+            new_country_origin = st.text_input("Country of origin:",value=country_origin)
+            new_no_of_matches = st.text_input("No. of matches umpired:",value=no_of_matches)
 
         if st.button("Update Umpire"):
-            edit_umpire_data(new_umpire_name,new_umpire_id,new_no_of_matches,new_dob,new_country_origin,umpire_name,umpire_id,no_of_matches,dob,country_origin)
+            edit_umpire_data(new_umpire_name,new_umpire_id,new_no_of_matches,new_dob,new_country_origin,umpire_name)
             st.success("Successfully updated:: {} to ::{}".format(umpire_name, new_umpire_name))
 
     result2 = view_all_umpire()

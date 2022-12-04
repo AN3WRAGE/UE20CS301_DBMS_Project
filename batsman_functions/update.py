@@ -28,18 +28,18 @@ def update():
 
         col1, col2 = st.columns(2)
         with col1:
-            new_jersey_no = st.text_input("Enter jersey no:")
-            new_sixes = st.text_input("Number of sixes:")
-            new_runs = st.text_input("Number of runs:")
-            new_hundreds = st.text_input("Number of hundreds:")
+            new_jersey_no = st.text_input("Enter jersey no:",value=jersey_no)
+            new_sixes = st.text_input("Number of sixes:",value=sixes)
+            new_runs = st.text_input("Number of runs:",value=runs)
+            new_hundreds = st.text_input("Number of hundreds:",value=hundreds)
 
         with col2:
-            new_average = st.text_input("Batting average:")
-            new_fifties = st.text_input("Number of fifties:")
-            new_fours = st.text_input("Number of fours:")
+            new_average = st.text_input("Batting average:",value=average)
+            new_fifties = st.text_input("Number of fifties:",value=fifties)
+            new_fours = st.text_input("Number of fours:",value=fours)
 
         if st.button("Update batsman"):
-            edit_batsman_data(new_jersey_no,new_sixes,new_runs,new_average,new_fifties,new_fours,new_hundreds,jersey_no,sixes,runs,average,fifties,fours,hundreds)
+            edit_batsman_data(new_jersey_no,new_sixes,new_runs,new_average,new_fifties,new_fours,new_hundreds,jersey_no)
             st.success("Successfully updated batsman:: {} ".format(player_name))
 
     result2 = view_all_batsman()
